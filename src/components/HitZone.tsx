@@ -9,6 +9,7 @@ interface HitZoneProps {
   onHit: () => void;
 }
 
+
 interface Ripple {
   id: number;
   x: number;
@@ -36,8 +37,8 @@ export function HitZone({ clickCount, intensity, onHit }: HitZoneProps) {
   return (
     <div className="flex flex-col items-center gap-6 py-4">
       <div className="text-center">
-        <p className="text-zinc-400 text-sm mb-1">Bata quantas vezes quiser</p>
-        <p className="text-zinc-600 text-xs">Para de bater por 3s para soltar a raiva</p>
+        <p className="text-zinc-400 text-sm mb-1">Aperte quantas vezes quiser</p>
+        <p className="text-zinc-600 text-xs">Pare por 3s para soltar a raiva — nada fica salvo</p>
       </div>
 
       <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
@@ -97,7 +98,7 @@ export function HitZone({ clickCount, intensity, onHit }: HitZoneProps) {
 
           <Zap size={36} style={{ color: level.color }} />
           <span className="text-xl tracking-widest" style={{ color: level.color }}>
-            BATER!
+            APERTAR!
           </span>
         </motion.button>
       </div>
@@ -112,7 +113,7 @@ export function HitZone({ clickCount, intensity, onHit }: HitZoneProps) {
             {clickCount}
           </p>
           <p className="text-zinc-500 text-sm">
-            {clickCount === 1 ? 'batida' : 'batidas'}
+            {clickCount === 1 ? 'aperto' : 'apertas'}
           </p>
         </motion.div>
       )}

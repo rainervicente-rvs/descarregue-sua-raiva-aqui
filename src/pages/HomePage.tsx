@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { ShieldCheck } from 'lucide-react';
 import { useRage } from '../hooks/useRage';
 import { Header } from '../components/Header';
 import { ModeSelector } from '../components/ModeSelector';
@@ -8,12 +9,9 @@ import { HitZone } from '../components/HitZone';
 import { ReleaseButton } from '../components/ReleaseButton';
 import { ExplosionOverlay } from '../components/ExplosionOverlay';
 import { ReleaseResult } from '../components/ReleaseResult';
-import { RageHistory } from '../components/RageHistory';
 
 export function HomePage() {
   const {
-    sessions,
-    todaySessions,
     mode,
     setMode,
     text,
@@ -25,7 +23,7 @@ export function HomePage() {
     lastReleasedIntensity,
     canRelease,
     triggerRelease,
-    clearHistory,
+    sessionReleaseCount,
   } = useRage();
 
   return (
@@ -37,9 +35,9 @@ export function HomePage() {
         transition={{ duration: 0.35 }}
         className="max-w-lg mx-auto"
       >
-        <Header todayCount={todaySessions.length} />
+        <Header sessionCount={sessionReleaseCount} />
 
-        <div className="flex flex-col gap-5 pb-8">
+        <div className="flex flex-col gap-5 pb-12">
           <ModeSelector mode={mode} onChange={setMode} />
 
           <RageMeter intensity={intensity} />
@@ -57,7 +55,7 @@ export function HomePage() {
               </motion.div>
             ) : (
               <motion.div
-                key="bater"
+                key="botao"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -69,16 +67,11 @@ export function HomePage() {
           </AnimatePresence>
 
           <AnimatePresence mode="wait">
-            {isExploding || lastReleasedIntensity !== null ? (
-              <motion.div
-                key={isExploding ? 'exploding' : 'result'}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
+            {lastReleasedIntensity !== null && (
+              <motion.div key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <ReleaseResult intensity={lastReleasedIntensity} />
               </motion.div>
-            ) : null}
+            )}
           </AnimatePresence>
 
           {mode === 'escrever' && (
@@ -89,11 +82,11 @@ export function HomePage() {
             />
           )}
 
-          {sessions.length > 0 && (
-            <div className="mt-2">
-              <RageHistory sessions={sessions} onClear={clearHistory} />
-            </div>
-          )}
+          {/* Privacy footer */}
+          <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-700 px-4 mt-2">
+            <ShieldCheck size={12} />
+            <span>Aperte. Grite. Escreva. Nada fica salvo.</span>
+          </div>
         </div>
       </motion.div>
     </div>

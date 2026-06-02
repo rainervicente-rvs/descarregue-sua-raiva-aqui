@@ -60,6 +60,9 @@ export function RageTextArea({ value, onChange, intensity }: RageTextAreaProps) 
           {remaining} restantes
         </span>
       </div>
+      <p className="text-center text-[11px] text-zinc-700 mt-2">
+        Seu texto desaparece ao finalizar — nada fica salvo
+      </p>
     </div>
   );
 }

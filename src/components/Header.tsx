@@ -2,10 +2,10 @@ import { motion } from 'framer-motion';
 import { Flame } from 'lucide-react';
 
 interface HeaderProps {
-  todayCount: number;
+  sessionCount: number;
 }
 
-export function Header({ todayCount }: HeaderProps) {
+export function Header({ sessionCount }: HeaderProps) {
   return (
     <header className="text-center py-8 px-4">
       <motion.div
@@ -40,7 +40,7 @@ export function Header({ todayCount }: HeaderProps) {
         O lugar certo para soltar tudo que está te irritando
       </motion.p>
 
-      {todayCount > 0 && (
+      {sessionCount > 0 && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -48,8 +48,8 @@ export function Header({ todayCount }: HeaderProps) {
         >
           <Flame size={14} className="text-orange-400" />
           <span>
-            <strong className="text-white">{todayCount}</strong>{' '}
-            {todayCount === 1 ? 'desabafo hoje' : 'desabafos hoje'}
+            <strong className="text-white">{sessionCount}</strong>{' '}
+            {sessionCount === 1 ? 'desabafo nessa sessão' : 'desabafos nessa sessão'}
           </span>
         </motion.div>
       )}

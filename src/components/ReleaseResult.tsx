@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { ShieldCheck } from 'lucide-react';
 import { getIntensityLevel, INTENSITY_LEVELS } from '../types';
 
 const MESSAGES_BY_LEVEL: Record<number, string[]> = {
@@ -13,7 +14,7 @@ const MESSAGES_BY_LEVEL: Record<number, string[]> = {
   2: [
     'Pronto! Já está melhor, né?',
     'Essa tava guardada faz tempo!',
-    'Raiva liberada com sucesso! 🔥',
+    'Raiva liberada. 🔥',
   ],
   3: [
     'CARAMBA! Essa raiva era pesada mesmo!',
@@ -61,15 +62,14 @@ export function ReleaseResult({ intensity }: ReleaseResultProps) {
           }}
         >
           <p className="text-3xl mb-2">{level.emoji}</p>
-          <p className="font-bold text-white mb-1" style={{ color: level.color }}>
+          <p className="font-bold mb-1" style={{ color: level.color }}>
             {level.label}
           </p>
-          <p className="text-zinc-300 text-sm">{message}</p>
-          <div className="mt-3 flex items-center justify-center gap-2">
-            <span className="text-zinc-500 text-xs">Intensidade:</span>
-            <span className="font-bold text-sm" style={{ color: level.color }}>
-              {intensity}%
-            </span>
+          <p className="text-zinc-300 text-sm mb-4">{message}</p>
+
+          <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-500 border-t pt-3" style={{ borderColor: `${level.color}22` }}>
+            <ShieldCheck size={12} className="text-zinc-600" />
+            <span>Seu texto foi apagado. Nada fica salvo aqui.</span>
           </div>
         </motion.div>
       )}

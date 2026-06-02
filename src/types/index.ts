@@ -1,13 +1,4 @@
-export type RageMode = 'escrever' | 'bater';
-
-export interface RageSession {
-  id: string;
-  mode: RageMode;
-  text: string;
-  intensity: number;
-  clickCount: number;
-  timestamp: number;
-}
+export type RageMode = 'escrever' | 'botao';
 
 export interface IntensityLevel {
   label: string;

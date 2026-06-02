@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { PenLine, Hand } from 'lucide-react';
+import { PenLine, MousePointerClick, Lock } from 'lucide-react';
 import type { RageMode } from '../types';
 
 interface ModeSelectorProps {
@@ -7,7 +7,7 @@ interface ModeSelectorProps {
   onChange: (mode: RageMode) => void;
 }
 
-const MODES: { id: RageMode; label: string; description: string; Icon: typeof PenLine }[] = [
+const ACTIVE_MODES: { id: RageMode; label: string; description: string; Icon: typeof PenLine }[] = [
   {
     id: 'escrever',
     label: 'Escrever',
@@ -15,17 +15,17 @@ const MODES: { id: RageMode; label: string; description: string; Icon: typeof Pe
     Icon: PenLine,
   },
   {
-    id: 'bater',
-    label: 'Bater',
-    description: 'Bata no botão até esgotar',
-    Icon: Hand,
+    id: 'botao',
+    label: 'Modo Botão',
+    description: 'Aperte até esgotar a raiva',
+    Icon: MousePointerClick,
   },
 ];
 
 export function ModeSelector({ mode, onChange }: ModeSelectorProps) {
   return (
-    <div className="flex gap-3 justify-center px-4">
-      {MODES.map(({ id, label, description, Icon }) => {
+    <div className="flex gap-3 justify-center px-4 flex-wrap">
+      {ACTIVE_MODES.map(({ id, label, description, Icon }) => {
         const active = mode === id;
         return (
           <motion.button
@@ -34,7 +34,7 @@ export function ModeSelector({ mode, onChange }: ModeSelectorProps) {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             className={[
-              'flex-1 max-w-48 flex flex-col items-center gap-1.5 rounded-xl border py-4 px-3 cursor-pointer transition-colors duration-200',
+              'flex-1 min-w-32 max-w-48 flex flex-col items-center gap-1.5 rounded-xl border py-4 px-3 cursor-pointer transition-colors duration-200',
               active
                 ? 'bg-red-600/20 border-red-500 text-white'
                 : 'bg-zinc-900 border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200',
@@ -46,6 +46,16 @@ export function ModeSelector({ mode, onChange }: ModeSelectorProps) {
           </motion.button>
         );
       })}
+
+      {/* Coming soon: Não Envie Isso */}
+      <div className="flex-1 min-w-32 max-w-48 relative flex flex-col items-center gap-1.5 rounded-xl border border-zinc-800 bg-zinc-900/50 py-4 px-3 opacity-50 select-none">
+        <Lock size={22} className="text-zinc-600" />
+        <span className="font-bold text-sm text-zinc-500">Não Envie Isso</span>
+        <span className="text-xs text-center leading-tight text-zinc-600">Reescreva aquela mensagem impulsiva</span>
+        <span className="absolute top-2 right-2 text-[10px] font-bold bg-zinc-700 text-zinc-400 px-1.5 py-0.5 rounded-full">
+          Em breve
+        </span>
+      </div>
     </div>
   );
 }
