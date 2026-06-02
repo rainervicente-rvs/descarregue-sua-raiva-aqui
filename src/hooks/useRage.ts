@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import type { RageMode } from '../types';
 import { clearSensitiveSessionState } from '../utils/privacy';
 
-// Wipe any sensitive data persisted by older versions of this app
+// Wipe any sensitive data persisted by older versions
 clearSensitiveSessionState();
 
 function calcIntensity(text: string, clickCount: number, mode: RageMode): number {
@@ -43,7 +43,6 @@ export function useRage() {
   const [sessionReleaseCount, setSessionReleaseCount] = useState(0);
 
   const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  // Refs so the auto-release timeout always sees fresh values without stale closures
   const clickCountRef = useRef(clickCount);
   clickCountRef.current = clickCount;
 
@@ -51,7 +50,6 @@ export function useRage() {
     setLastReleasedIntensity(intensity);
     setIsExploding(true);
     setSessionReleaseCount(c => c + 1);
-    // Wipe sensitive state immediately — text never leaves memory
     setText('');
     setClickCount(0);
     setTimeout(() => setIsExploding(false), 1000);
@@ -90,6 +88,10 @@ export function useRage() {
     if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
   }, []);
 
+  const resetToInput = useCallback(() => {
+    setLastReleasedIntensity(null);
+  }, []);
+
   const intensity = calcIntensity(text, clickCount, mode);
   const canRelease = mode === 'escrever' ? text.trim().length > 0 : clickCount > 0;
 
@@ -105,6 +107,7 @@ export function useRage() {
     lastReleasedIntensity,
     canRelease,
     triggerRelease,
+    resetToInput,
     sessionReleaseCount,
   };
 }
