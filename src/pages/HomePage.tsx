@@ -11,9 +11,14 @@ import { ReleaseButton } from '../components/ReleaseButton';
 import { ExplosionOverlay } from '../components/ExplosionOverlay';
 import { PostReleaseActions } from '../components/PostReleaseActions';
 import { HeroSection } from '../components/HeroSection';
+import { CaminhoDeAlivio } from '../components/CaminhoDeAlivio';
 import { HowItWorks } from '../components/HowItWorks';
+import { EstadosEmocionais } from '../components/EstadosEmocionais';
+import { PrivacidadeSection } from '../components/PrivacidadeSection';
+import { PorQueFunciona } from '../components/PorQueFunciona';
 import { SkinSelector } from '../components/SkinSelector';
 import { PremiumPlans } from '../components/PremiumPlans';
+import { CtaFinal } from '../components/CtaFinal';
 import { Footer } from '../components/Footer';
 
 export function HomePage() {
@@ -36,7 +41,7 @@ export function HomePage() {
   const { currentSkin, updatePreferences } = usePreferences();
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans">
+    <div className="min-h-screen font-sans" style={{ background: '#FFF8EC', color: '#172B4D' }}>
       <ExplosionOverlay
         isExploding={isExploding}
         intensity={lastReleasedIntensity ?? intensity}
@@ -45,10 +50,17 @@ export function HomePage() {
       {/* ── Landing hero ──────────────────────────────────────────────────── */}
       <HeroSection />
 
+      {/* ── Caminhos de alívio ────────────────────────────────────────────── */}
+      <CaminhoDeAlivio />
+
       {/* ── App section ───────────────────────────────────────────────────── */}
-      <section id="app" className="border-t border-zinc-900 pb-4">
+      <section
+        id="app"
+        className="pb-4"
+        style={{ borderTop: '1px solid #EDE0CB', background: '#FFF8EC' }}
+      >
         <motion.div
-          animate={isExploding ? { x: [-4, 4, -3, 3, -2, 2, 0] } : {}}
+          animate={isExploding ? { x: [-3, 3, -2, 2, -1, 1, 0] } : {}}
           transition={{ duration: 0.35 }}
           className="max-w-lg mx-auto"
         >
@@ -109,9 +121,12 @@ export function HomePage() {
             </AnimatePresence>
 
             {/* Privacy promise */}
-            <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-800 px-4">
-              <ShieldCheck size={11} />
-              <span>Aperte. Grite. Escreva. Nada fica salvo.</span>
+            <div
+              className="flex items-center justify-center gap-1.5 text-xs px-4"
+              style={{ color: '#C0B8AA' }}
+            >
+              <ShieldCheck size={11} style={{ color: '#A8C49A' }} />
+              <span>Aperte. Respire. Escreva. Nada fica salvo.</span>
             </div>
           </div>
         </motion.div>
@@ -120,12 +135,20 @@ export function HomePage() {
       {/* ── Landing sections ──────────────────────────────────────────────── */}
       <HowItWorks />
 
+      <EstadosEmocionais />
+
+      <PrivacidadeSection />
+
+      <PorQueFunciona />
+
       <SkinSelector
         currentSkinId={currentSkin.id}
         onSelectSkin={id => updatePreferences({ skinId: id })}
       />
 
       <PremiumPlans />
+
+      <CtaFinal />
 
       <Footer />
     </div>

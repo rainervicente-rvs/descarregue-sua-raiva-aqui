@@ -26,7 +26,6 @@ export function PostReleaseActions({
   const level = getIntensityLevel(intensity);
   const levelIndex = getLevelIndex(intensity);
 
-  // Stable random pick — chosen once when component mounts
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const finalization = useMemo(
     () => FINALIZATIONS[Math.floor(Math.random() * FINALIZATIONS.length)],
@@ -35,18 +34,13 @@ export function PostReleaseActions({
 
   async function handleShare() {
     const url = window.location.origin;
-    const text =
-      'Achei um site para descarregar a raiva sem deixar rastro.';
+    const text = 'Achei um site para descarregar a raiva sem deixar rastro.';
 
     if (navigator.share) {
       try {
-        await navigator.share({
-          title: 'Descarregue Sua Raiva Aqui',
-          text,
-          url,
-        });
+        await navigator.share({ title: 'Descarregue Sua Raiva Aqui', text, url });
       } catch {
-        // user cancelled — no-op
+        // user cancelled
       }
     } else {
       await navigator.clipboard.writeText(url);
@@ -72,28 +66,33 @@ export function PostReleaseActions({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      initial={{ opacity: 0, y: 20, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
+      exit={{ opacity: 0, scale: 0.97 }}
       transition={{ type: 'spring', stiffness: 280, damping: 24 }}
       className="mx-4"
     >
       {/* Result card */}
       <div
-        className="rounded-2xl border p-5 text-center mb-4"
-        style={{ backgroundColor: level.bgColor, borderColor: `${level.color}44` }}
+        className="rounded-2xl p-5 text-center mb-4"
+        style={{
+          background: level.bgColor,
+          border: `1.5px solid ${level.color}44`,
+        }}
       >
         <p className="text-3xl mb-2">{level.emoji}</p>
         <p className="font-bold mb-1" style={{ color: level.color }}>
           {INTENSITY_LEVELS[levelIndex].label}
         </p>
-        <p className="text-zinc-300 text-sm mb-4">{finalization}</p>
+        <p className="text-sm mb-4 leading-relaxed" style={{ color: '#667085' }}>
+          {finalization}
+        </p>
 
         <div
-          className="flex items-center justify-center gap-1.5 text-xs text-zinc-600 border-t pt-3"
-          style={{ borderColor: `${level.color}22` }}
+          className="flex items-center justify-center gap-1.5 text-xs pt-3"
+          style={{ borderTop: `1px solid ${level.color}22`, color: '#98A2B3' }}
         >
-          <ShieldCheck size={11} className="text-zinc-700" />
+          <ShieldCheck size={11} style={{ color: '#A8C49A' }} />
           <span>Seu texto foi apagado. Nada fica salvo aqui.</span>
         </div>
       </div>
@@ -106,7 +105,20 @@ export function PostReleaseActions({
             onClick={onClick}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            className="flex items-center justify-center gap-2 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white rounded-xl py-3 px-4 text-sm font-medium cursor-pointer transition-colors"
+            className="flex items-center justify-center gap-2 rounded-xl py-3 px-4 text-sm font-semibold cursor-pointer transition-all"
+            style={{
+              background: '#FFFFFF',
+              border: '1.5px solid #EDE0CB',
+              color: '#667085',
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLButtonElement).style.borderColor = '#DDD0B8';
+              (e.currentTarget as HTMLButtonElement).style.color = '#172B4D';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLButtonElement).style.borderColor = '#EDE0CB';
+              (e.currentTarget as HTMLButtonElement).style.color = '#667085';
+            }}
           >
             <Icon size={13} className="flex-shrink-0" />
             <span className="truncate">{label}</span>

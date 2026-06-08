@@ -25,16 +25,28 @@ export function SkinSelector({ currentSkinId, onSelectSkin }: SkinSelectorProps)
   const premiumSkins = SKINS.filter(s => !s.free);
 
   return (
-    <section id="skins" className="py-16 px-4 border-t border-zinc-900">
+    <section id="skins" className="py-16 px-4" style={{ background: '#FFF8EC' }}>
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-2xl font-black text-white text-center mb-2">Skins</h2>
-        <p className="text-zinc-600 text-sm text-center mb-10">
-          Escolha o estilo da sua descarga
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <p className="text-sm font-semibold tracking-wider uppercase mb-2" style={{ color: '#F46F5E' }}>
+            Personalize
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-3" style={{ color: '#172B4D' }}>
+            Skins de descarga
+          </h2>
+          <p className="text-base" style={{ color: '#667085' }}>
+            Escolha o estilo que representa o que você está sentindo.
+          </p>
+        </motion.div>
 
         {/* Free skins */}
         <div className="mb-8">
-          <p className="text-xs text-zinc-700 uppercase tracking-wider font-bold mb-3">
+          <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: '#98A2B3' }}>
             Grátis
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -46,25 +58,30 @@ export function SkinSelector({ currentSkinId, onSelectSkin }: SkinSelectorProps)
                   onClick={() => handleClick(skin)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={[
-                    'relative text-left rounded-xl p-3.5 border cursor-pointer transition-all duration-200',
+                  className="relative text-left rounded-xl p-3.5 cursor-pointer transition-all duration-200"
+                  style={
                     active
-                      ? 'bg-zinc-800 border-zinc-500'
-                      : 'bg-zinc-900 border-zinc-800 hover:border-zinc-700',
-                  ].join(' ')}
+                      ? { background: '#FFFFFF', border: `1.5px solid ${skin.primaryColor}`, boxShadow: `0 2px 12px ${skin.primaryColor}22` }
+                      : { background: '#FFFFFF', border: '1.5px solid #EDE0CB' }
+                  }
                 >
                   <div
                     className="w-full h-1.5 rounded-full mb-2.5"
-                    style={{
-                      background: `linear-gradient(90deg, ${skin.primaryColor}, ${skin.accentColor})`,
-                    }}
+                    style={{ background: `linear-gradient(90deg, ${skin.primaryColor}, ${skin.accentColor})` }}
                   />
-                  <p className="font-bold text-sm text-white leading-tight">{skin.label}</p>
-                  <p className="text-xs text-zinc-600 mt-0.5 leading-tight">{skin.description}</p>
+                  <p className="font-bold text-sm leading-tight" style={{ color: '#172B4D' }}>
+                    {skin.label}
+                  </p>
+                  <p className="text-xs mt-0.5 leading-tight" style={{ color: '#98A2B3' }}>
+                    {skin.description}
+                  </p>
 
                   {active && (
-                    <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-white flex items-center justify-center">
-                      <Check size={11} className="text-zinc-900" />
+                    <div
+                      className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full flex items-center justify-center"
+                      style={{ background: skin.primaryColor }}
+                    >
+                      <Check size={11} className="text-white" />
                     </div>
                   )}
                 </motion.button>
@@ -75,7 +92,7 @@ export function SkinSelector({ currentSkinId, onSelectSkin }: SkinSelectorProps)
 
         {/* Premium skins */}
         <div>
-          <p className="text-xs text-zinc-700 uppercase tracking-wider font-bold mb-3">
+          <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: '#98A2B3' }}>
             Premium — em breve
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -84,16 +101,17 @@ export function SkinSelector({ currentSkinId, onSelectSkin }: SkinSelectorProps)
                 key={skin.id}
                 onClick={() => handleClick(skin)}
                 whileHover={{ scale: 1.02 }}
-                className="relative text-left rounded-xl p-3 border border-zinc-800 bg-zinc-900/40 cursor-pointer"
+                className="relative text-left rounded-xl p-3 cursor-pointer"
+                style={{ background: '#FAFAF8', border: '1.5px solid #EDE0CB' }}
               >
                 <div
-                  className="w-full h-1.5 rounded-full mb-2 opacity-30"
-                  style={{
-                    background: `linear-gradient(90deg, ${skin.primaryColor}, ${skin.accentColor})`,
-                  }}
+                  className="w-full h-1.5 rounded-full mb-2 opacity-25"
+                  style={{ background: `linear-gradient(90deg, ${skin.primaryColor}, ${skin.accentColor})` }}
                 />
-                <p className="font-semibold text-xs text-zinc-500 leading-tight">{skin.label}</p>
-                <Lock size={9} className="text-zinc-700 absolute top-2.5 right-2.5" />
+                <p className="font-semibold text-xs leading-tight" style={{ color: '#98A2B3' }}>
+                  {skin.label}
+                </p>
+                <Lock size={9} className="absolute top-2.5 right-2.5" style={{ color: '#DDD0B8' }} />
               </motion.button>
             ))}
           </div>
@@ -107,7 +125,8 @@ export function SkinSelector({ currentSkinId, onSelectSkin }: SkinSelectorProps)
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-zinc-800 border border-zinc-700 text-white text-sm px-4 py-2.5 rounded-xl shadow-lg z-50 whitespace-nowrap"
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 text-sm px-5 py-3 rounded-xl shadow-lg z-50 whitespace-nowrap font-semibold"
+            style={{ background: '#172B4D', color: '#FFFFFF' }}
           >
             🔒 Em breve — desbloqueie skins para descarregar com estilo.
           </motion.div>

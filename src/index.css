@@ -1,8 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  --font-family-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-family-sans: "Nunito Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-family-serif: "Fraunces", "Lora", "Georgia", serif;
 
+  /* Brand palette */
+  --color-cream:        #FFF8EC;
+  --color-cream-100:    #FFFDF6;
+  --color-cream-200:    #FFF3E0;
+  --color-cream-300:    #EDE0CB;
+  --color-cream-400:    #DDD0B8;
+
+  --color-coral:        #F46F5E;
+  --color-coral-dark:   #D94030;
+  --color-coral-light:  #F9A89E;
+
+  --color-lavanda:      #B9A7E8;
+  --color-lavanda-dark: #9A87D4;
+  --color-lavanda-light:#D8CFF5;
+
+  --color-sky-calm:     #9CCBEA;
+  --color-sky-dark:     #6AAED6;
+  --color-sky-light:    #CBE7F5;
+
+  --color-sage:         #A8C49A;
+  --color-sage-dark:    #7FA870;
+  --color-sage-light:   #D0E8C8;
+
+  --color-navy:         #172B4D;
+  --color-navy-light:   #2D4A7A;
+  --color-slate-ui:     #667085;
+  --color-slate-light:  #98A2B3;
+
+  /* Legacy zinc preserved for internal use */
   --color-zinc-950: #09090b;
   --color-zinc-900: #18181b;
   --color-zinc-800: #27272a;
@@ -14,22 +44,6 @@
   --color-zinc-200: #e4e4e7;
   --color-zinc-100: #f4f4f5;
   --color-zinc-50:  #fafafa;
-
-  --color-red-700:    #b91c1c;
-  --color-red-600:    #dc2626;
-  --color-red-500:    #ef4444;
-  --color-red-400:    #f87171;
-  --color-red-900:    #7f1d1d;
-  --color-red-800:    #991b1b;
-
-  --color-orange-600: #ea580c;
-  --color-orange-500: #f97316;
-  --color-orange-400: #fb923c;
-  --color-orange-200: #fed7aa;
-
-  --color-blue-500:   #3b82f6;
-  --color-green-500:  #22c55e;
-  --color-amber-500:  #f59e0b;
 }
 
 *,
@@ -41,22 +55,43 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background-color: var(--color-zinc-950);
-  color: #fff;
+  background-color: var(--color-cream);
+  color: var(--color-navy);
   font-family: var(--font-family-sans);
+}
+
+/* Serif utility */
+.font-serif {
+  font-family: var(--font-family-serif);
 }
 
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-zinc-900);
+  background: var(--color-cream-200);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-zinc-700);
+  background: var(--color-cream-300);
   border-radius: 3px;
+}
+
+/* Pulse animation for CTA */
+@keyframes pulse-soft {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 111, 94, 0.35); }
+  50%       { box-shadow: 0 0 0 10px rgba(244, 111, 94, 0); }
+}
+
+.pulse-cta {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-cta { animation: none; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

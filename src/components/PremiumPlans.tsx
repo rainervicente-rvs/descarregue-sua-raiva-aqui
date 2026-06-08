@@ -49,14 +49,24 @@ export function PremiumPlans() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <section id="premium" className="py-16 px-4 border-t border-zinc-900">
+    <section id="premium" className="py-16 px-4" style={{ background: '#FFFFFF' }}>
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-2xl font-black text-white text-center mb-2">
-          Premium
-        </h2>
-        <p className="text-zinc-600 text-sm text-center mb-10">
-          Descarregue com mais estilo, mais modos e menos julgamento
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <p className="text-sm font-semibold tracking-wider uppercase mb-2" style={{ color: '#F46F5E' }}>
+            Planos
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-3" style={{ color: '#172B4D' }}>
+            Descarregue com mais profundidade
+          </h2>
+          <p className="text-base" style={{ color: '#667085' }}>
+            Mais modos, mais skins, mais controle emocional.
+          </p>
+        </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {PLANS.map((plan, i) => (
@@ -66,32 +76,34 @@ export function PremiumPlans() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={[
-                'rounded-2xl border p-5 flex flex-col',
+              className="rounded-2xl p-5 flex flex-col"
+              style={
                 plan.highlight
-                  ? 'bg-red-600/10 border-red-500/30'
-                  : 'bg-zinc-900 border-zinc-800',
-              ].join(' ')}
+                  ? { background: '#FFF3F2', border: '1.5px solid #F9C4BE', boxShadow: '0 4px 24px rgba(244,111,94,0.12)' }
+                  : { background: '#FAFAF8', border: '1.5px solid #EDE0CB' }
+              }
             >
               {plan.highlight && (
-                <span className="text-xs font-bold text-red-400 uppercase tracking-wider mb-3">
+                <span
+                  className="text-xs font-bold uppercase tracking-wider mb-3"
+                  style={{ color: '#F46F5E' }}
+                >
                   Mais popular
                 </span>
               )}
 
-              <h3 className="font-black text-white text-xl mb-1">{plan.name}</h3>
+              <h3 className="font-serif font-bold text-xl mb-1" style={{ color: '#172B4D' }}>
+                {plan.name}
+              </h3>
               <div className="flex items-baseline gap-0.5 mb-5">
-                <span className="text-2xl font-bold text-white">{plan.price}</span>
-                <span className="text-zinc-600 text-sm">{plan.period}</span>
+                <span className="text-2xl font-black" style={{ color: '#172B4D' }}>{plan.price}</span>
+                <span className="text-sm" style={{ color: '#98A2B3' }}>{plan.period}</span>
               </div>
 
               <ul className="flex flex-col gap-2.5 mb-6 flex-1">
                 {plan.features.map(feature => (
-                  <li
-                    key={feature}
-                    className="flex items-start gap-2 text-sm text-zinc-300"
-                  >
-                    <Check size={13} className="text-green-400 mt-0.5 flex-shrink-0" />
+                  <li key={feature} className="flex items-start gap-2 text-sm" style={{ color: '#667085' }}>
+                    <Check size={13} className="flex-shrink-0 mt-0.5" style={{ color: '#A8C49A' }} />
                     {feature}
                   </li>
                 ))}
@@ -101,12 +113,12 @@ export function PremiumPlans() {
                 onClick={() => setShowModal(true)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className={[
-                  'w-full py-2.5 rounded-xl font-bold text-sm cursor-pointer transition-all',
+                className="w-full py-2.5 rounded-xl font-bold text-sm cursor-pointer transition-all"
+                style={
                   plan.highlight
-                    ? 'bg-red-600 text-white hover:bg-red-500'
-                    : 'bg-zinc-800 border border-zinc-700 text-zinc-300 hover:border-zinc-600 hover:text-white',
-                ].join(' ')}
+                    ? { background: '#F46F5E', color: '#FFFFFF', border: 'none' }
+                    : { background: '#FFFFFF', border: '1.5px solid #EDE0CB', color: '#667085' }
+                }
               >
                 Quero ser avisado
               </motion.button>
@@ -119,36 +131,43 @@ export function PremiumPlans() {
       <AnimatePresence>
         {showModal && (
           <motion.div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 flex items-center justify-center z-50 p-4"
+            style={{ background: 'rgba(23,43,77,0.5)', backdropFilter: 'blur(4px)' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowModal(false)}
           >
             <motion.div
-              initial={{ scale: 0.9, y: 20 }}
+              initial={{ scale: 0.92, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 10 }}
+              exit={{ scale: 0.92, y: 10 }}
               onClick={e => e.stopPropagation()}
-              className="relative bg-zinc-900 border border-zinc-700 rounded-2xl p-6 max-w-sm w-full text-center"
+              className="relative rounded-2xl p-6 max-w-sm w-full text-center"
+              style={{ background: '#FFFFFF', border: '1.5px solid #EDE0CB' }}
             >
               <button
                 onClick={() => setShowModal(false)}
-                className="absolute top-4 right-4 text-zinc-600 hover:text-white cursor-pointer transition-colors"
+                className="absolute top-4 right-4 cursor-pointer transition-opacity hover:opacity-60"
+                style={{ color: '#98A2B3' }}
+                aria-label="Fechar"
               >
                 <X size={18} />
               </button>
 
-              <div className="text-4xl mb-3">🔥</div>
-              <h3 className="text-xl font-black text-white mb-2">Em breve</h3>
-              <p className="text-zinc-400 text-sm leading-relaxed">
+              <div className="text-4xl mb-3">🌊</div>
+              <h3 className="font-serif text-xl font-bold mb-2" style={{ color: '#172B4D' }}>
+                Em breve
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: '#667085' }}>
                 A primeira versão paga será liberada após os testes do MVP.
                 Nos testes o produto vai tomar forma de verdade.
               </p>
 
               <button
                 onClick={() => setShowModal(false)}
-                className="mt-5 w-full py-2.5 bg-zinc-800 border border-zinc-700 text-zinc-300 rounded-xl text-sm font-semibold hover:border-zinc-600 cursor-pointer transition-colors"
+                className="mt-5 w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-all hover:opacity-80"
+                style={{ background: '#FFF8EC', border: '1.5px solid #EDE0CB', color: '#667085' }}
               >
                 Entendido
               </button>

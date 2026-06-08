@@ -10,11 +10,11 @@ export interface IntensityLevel {
 }
 
 export const INTENSITY_LEVELS: IntensityLevel[] = [
-  { label: 'Tranquilo',   color: '#60a5fa', emoji: '😐', bgColor: 'rgba(96,165,250,0.12)'  },
-  { label: 'Irritado',    color: '#34d399', emoji: '😤', bgColor: 'rgba(52,211,153,0.12)'  },
-  { label: 'Bravo',       color: '#fbbf24', emoji: '😠', bgColor: 'rgba(251,191,36,0.12)'  },
-  { label: 'Furioso',     color: '#f97316', emoji: '🤬', bgColor: 'rgba(249,115,22,0.12)'  },
-  { label: 'IRADO TOTAL', color: '#ef4444', emoji: '💢', bgColor: 'rgba(239,68,68,0.12)'   },
+  { label: 'Tranquilo',   color: '#9CCBEA', emoji: '😮‍💨', bgColor: 'rgba(156,203,234,0.12)' },
+  { label: 'Irritado',    color: '#B9A7E8', emoji: '😤',   bgColor: 'rgba(185,167,232,0.12)' },
+  { label: 'Bravo',       color: '#F46F5E', emoji: '😠',   bgColor: 'rgba(244,111,94,0.12)'  },
+  { label: 'Furioso',     color: '#E05040', emoji: '🤬',   bgColor: 'rgba(224,80,64,0.12)'   },
+  { label: 'No limite',   color: '#C83020', emoji: '💢',   bgColor: 'rgba(200,48,32,0.12)'   },
 ];
 
 export function getIntensityLevel(intensity: number): IntensityLevel {
@@ -33,12 +33,12 @@ export interface Phase {
 }
 
 export const PHASES: Phase[] = [
-  { minClicks: 0,   label: 'Irritado',          color: '#60a5fa' },
-  { minClicks: 10,  label: 'Bufando',            color: '#34d399' },
-  { minClicks: 25,  label: 'Já deu',             color: '#fbbf24' },
-  { minClicks: 45,  label: 'Panela de pressão',  color: '#f97316' },
-  { minClicks: 70,  label: 'AAAAAAAAAAAA',        color: '#ef4444' },
-  { minClicks: 100, label: 'Surto protocolado',   color: '#dc2626' },
+  { minClicks: 0,   label: 'Irritado',         color: '#9CCBEA' },
+  { minClicks: 10,  label: 'Bufando',           color: '#B9A7E8' },
+  { minClicks: 25,  label: 'Já deu',            color: '#F46F5E' },
+  { minClicks: 45,  label: 'Panela de pressão', color: '#E05040' },
+  { minClicks: 70,  label: 'AAAAAAAAAAAA',       color: '#C83020' },
+  { minClicks: 100, label: 'Surto protocolado',  color: '#A82010' },
 ];
 
 export function getCurrentPhase(clickCount: number): Phase {
@@ -49,29 +49,29 @@ export function getCurrentPhase(clickCount: number): Phase {
 }
 
 export const MICROCOPIES: string[] = [
-  'Vai, aperta. O teclado aguenta.',
+  'Você está soltando um pouco. Continue.',
   'Melhor aqui do que no grupo da família.',
-  'Respira só depois. Agora descarrega.',
+  'Coloque pra fora com segurança.',
   'O botão não vai te julgar.',
   'Nenhum print será produzido.',
   'Surto em ambiente controlado.',
   'Protocolando indignação no vazio.',
-  'Isso aqui é zona segura.',
-  'Manda mais um. Pode.',
+  'Aqui é zona segura. Vai fundo.',
+  'Mais um. Pode.',
   'Mais intensidade. Menos WhatsApp.',
-  'Ninguém vai ler isso. Vai fundo.',
+  'Ninguém vai ler isso.',
   'Pressão liberada de forma responsável.',
 ];
 
 export const FINALIZATIONS: string[] = [
-  'Você descarregou. O teclado sobreviveu.',
-  'Nada ficou salvo. Nem essa raiva precisa ficar.',
+  'Você descarregou. Agora respire.',
+  'Nada ficou salvo. Esse peso pode ir embora.',
   'Melhor apertar um botão do que mandar uma mensagem errada.',
-  'Parabéns. Nenhum grupo de WhatsApp foi destruído.',
+  'Nenhum grupo de WhatsApp foi destruído. Parabéns.',
   'O surto foi protocolado e imediatamente arquivado no vazio.',
   'Seu "eu de amanhã" agradece.',
   'Mais calmo? O botão continua aqui se precisar.',
-  'Indignação processada com sucesso.',
+  'Indignação processada. Você segue.',
 ];
 
 // ── Skins ────────────────────────────────────────────────────────────────────
@@ -87,21 +87,21 @@ export interface Skin {
 
 export const SKINS: Skin[] = [
   // Free
-  { id: 'basic',     label: 'Básico',                free: true,  primaryColor: '#ef4444', accentColor: '#f97316', buttonLabel: 'APERTAR!',    description: 'O clássico. Sem frescura.' },
-  { id: 'office',    label: 'Escritório em colapso', free: true,  primaryColor: '#6366f1', accentColor: '#8b5cf6', buttonLabel: 'PROCESSAR!',  description: 'Para quando a reunião nunca acaba.' },
-  { id: 'student',   label: 'Estudante surtado',      free: true,  primaryColor: '#f59e0b', accentColor: '#fbbf24', buttonLabel: 'APERTAR!',    description: 'Prova amanhã, nada estudado.' },
-  { id: 'gamer',     label: 'Gamer tiltado',           free: true,  primaryColor: '#06b6d4', accentColor: '#0ea5e9', buttonLabel: 'REPORTAR!',   description: 'Lag, feed, tilt. O ciclo.' },
-  { id: 'adultlife', label: 'Vida adulta',             free: true,  primaryColor: '#94a3b8', accentColor: '#cbd5e1', buttonLabel: 'APERTAR!',    description: 'Boleto, trânsito, reunião.' },
-  { id: 'monster',   label: 'Monstrinho da raiva',     free: true,  primaryColor: '#10b981', accentColor: '#34d399', buttonLabel: 'RUGIR!',      description: 'Solte o monstro interno.' },
+  { id: 'basic',     label: 'Básico',                free: true,  primaryColor: '#F46F5E', accentColor: '#E05040', buttonLabel: 'SOLTAR!',     description: 'O clássico. Sem frescura.'              },
+  { id: 'office',    label: 'Escritório em colapso', free: true,  primaryColor: '#B9A7E8', accentColor: '#9A87D4', buttonLabel: 'PROCESSAR!',  description: 'Para quando a reunião nunca acaba.'     },
+  { id: 'student',   label: 'Estudante surtado',      free: true,  primaryColor: '#F0A030', accentColor: '#E08820', buttonLabel: 'APERTAR!',    description: 'Prova amanhã, nada estudado.'           },
+  { id: 'gamer',     label: 'Gamer tiltado',           free: true,  primaryColor: '#9CCBEA', accentColor: '#6AAED6', buttonLabel: 'REPORTAR!',   description: 'Lag, feed, tilt. O ciclo.'              },
+  { id: 'adultlife', label: 'Vida adulta',             free: true,  primaryColor: '#A8C49A', accentColor: '#7FA870', buttonLabel: 'APERTAR!',    description: 'Boleto, trânsito, reunião.'             },
+  { id: 'monster',   label: 'Monstrinho da raiva',     free: true,  primaryColor: '#A8C49A', accentColor: '#7FA870', buttonLabel: 'RUGIR!',      description: 'Solte o monstro interno.'              },
   // Premium (locked)
-  { id: 'monday',    label: 'Segunda-feira',           free: false, primaryColor: '#7c3aed', accentColor: '#a855f7', buttonLabel: 'APERTAR!',    description: 'A pior de todas.' },
-  { id: 'bill',      label: 'Boleto vencido',          free: false, primaryColor: '#dc2626', accentColor: '#ef4444', buttonLabel: 'PAGAR!',      description: 'Juros e mais juros.' },
-  { id: 'meeting',   label: 'Reunião infinita',        free: false, primaryColor: '#0891b2', accentColor: '#06b6d4', buttonLabel: 'ENCERRAR!',   description: 'Poderia ter sido um e-mail.' },
-  { id: 'client',    label: 'Cliente sem noção',       free: false, primaryColor: '#b45309', accentColor: '#d97706', buttonLabel: 'ATENDER!',    description: 'O prazo era ontem.' },
-  { id: 'traffic',   label: 'Trânsito brasileiro',     free: false, primaryColor: '#b91c1c', accentColor: '#dc2626', buttonLabel: 'BUZINAR!',    description: 'Uma hora preso no sinal.' },
-  { id: 'whatsapp',  label: 'Grupo da família',        free: false, primaryColor: '#15803d', accentColor: '#22c55e', buttonLabel: 'SILENCIAR!',  description: 'Corrente às 7h da manhã.' },
-  { id: 'court',     label: 'Audiência atrasada',      free: false, primaryColor: '#1d4ed8', accentColor: '#3b82f6', buttonLabel: 'PROTESTAR!',  description: 'Uma hora no corredor.' },
-  { id: 'registry',  label: 'Cartório em chamas',      free: false, primaryColor: '#92400e', accentColor: '#b45309', buttonLabel: 'PROTOCOLAR!', description: 'Fila, senha, fila de novo.' },
+  { id: 'monday',    label: 'Segunda-feira',           free: false, primaryColor: '#7c3aed', accentColor: '#a855f7', buttonLabel: 'APERTAR!',    description: 'A pior de todas.'                      },
+  { id: 'bill',      label: 'Boleto vencido',          free: false, primaryColor: '#C83020', accentColor: '#E05040', buttonLabel: 'PAGAR!',      description: 'Juros e mais juros.'                   },
+  { id: 'meeting',   label: 'Reunião infinita',        free: false, primaryColor: '#0891b2', accentColor: '#06b6d4', buttonLabel: 'ENCERRAR!',   description: 'Poderia ter sido um e-mail.'           },
+  { id: 'client',    label: 'Cliente sem noção',       free: false, primaryColor: '#b45309', accentColor: '#d97706', buttonLabel: 'ATENDER!',    description: 'O prazo era ontem.'                    },
+  { id: 'traffic',   label: 'Trânsito brasileiro',     free: false, primaryColor: '#C83020', accentColor: '#E05040', buttonLabel: 'BUZINAR!',    description: 'Uma hora preso no sinal.'              },
+  { id: 'whatsapp',  label: 'Grupo da família',        free: false, primaryColor: '#15803d', accentColor: '#22c55e', buttonLabel: 'SILENCIAR!',  description: 'Corrente às 7h da manhã.'              },
+  { id: 'court',     label: 'Audiência atrasada',      free: false, primaryColor: '#1d4ed8', accentColor: '#3b82f6', buttonLabel: 'PROTESTAR!',  description: 'Uma hora no corredor.'                 },
+  { id: 'registry',  label: 'Cartório em chamas',      free: false, primaryColor: '#92400e', accentColor: '#b45309', buttonLabel: 'PROTOCOLAR!', description: 'Fila, senha, fila de novo.'            },
 ];
 
 export function getSkinById(id: string): Skin {

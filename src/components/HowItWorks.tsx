@@ -1,52 +1,89 @@
 import { motion } from 'framer-motion';
-import { MousePointerClick, Zap, Wind } from 'lucide-react';
 
 const STEPS = [
   {
-    Icon: MousePointerClick,
-    title: 'Aperte',
-    description:
-      'Use o botão, o ENTER, o ESPAÇO ou qualquer tecla para descarregar.',
+    num: '01',
+    title: 'Reconheça',
+    description: 'Você está sobrecarregado. Irritado. No limite. Tudo bem — isso é humano.',
+    color: '#9CCBEA',
+    bg: '#F0F8FD',
   },
   {
-    Icon: Zap,
-    title: 'Exploda',
-    description:
-      'A interface reage, vibra e libera a raiva em forma de animação.',
+    num: '02',
+    title: 'Expresse',
+    description: 'Escreva o que está sentindo ou aperte o botão. Sem filtro, sem audiência.',
+    color: '#B9A7E8',
+    bg: '#F5F2FD',
   },
   {
-    Icon: Wind,
+    num: '03',
+    title: 'Descarregue',
+    description: 'Solte a tensão aqui dentro. O app recebe tudo — nada vaza para fora.',
+    color: '#F46F5E',
+    bg: '#FFF3F2',
+  },
+  {
+    num: '04',
     title: 'Respire',
-    description: 'Ao final, tudo some. Nada fica salvo.',
+    description: 'Depois da descarga, uma pausa. Observe como o peso foi um pouco embora.',
+    color: '#A8C49A',
+    bg: '#F2F8F0',
+  },
+  {
+    num: '05',
+    title: 'Reequilibre',
+    description: 'Você não precisa resolver tudo agora. Volte mais calmo para o que importa.',
+    color: '#172B4D',
+    bg: '#F0F3F8',
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="como-funciona" className="py-16 px-4 border-t border-zinc-900">
+    <section id="como-funciona" className="py-16 px-4" style={{ background: '#FFF8EC' }}>
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-2xl font-black text-white text-center mb-2">
-          Como funciona
-        </h2>
-        <p className="text-zinc-600 text-sm text-center mb-10">
-          Simples, rápido e catártico
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <p className="text-sm font-semibold tracking-wider uppercase mb-2" style={{ color: '#F46F5E' }}>
+            Do nó ao fluxo
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-3" style={{ color: '#172B4D' }}>
+            Como funciona
+          </h2>
+          <p className="text-base" style={{ color: '#667085' }}>
+            Cinco passos simples de descarga emocional segura.
+          </p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {STEPS.map(({ Icon, title, description }, i) => (
+        <div className="flex flex-col gap-3">
+          {STEPS.map(({ num, title, description, color, bg }, i) => (
             <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              key={num}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.12 }}
-              className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 text-center"
+              transition={{ delay: i * 0.1 }}
+              className="flex items-start gap-4 rounded-2xl p-5"
+              style={{ background: bg, border: `1px solid ${color}33` }}
             >
-              <div className="w-10 h-10 rounded-full bg-red-600/10 border border-red-500/20 flex items-center justify-center mx-auto mb-3">
-                <Icon size={18} className="text-red-400" />
+              <div
+                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm"
+                style={{ background: color, color: '#FFFFFF' }}
+              >
+                {num}
               </div>
-              <h3 className="font-bold text-white mb-2">{title}</h3>
-              <p className="text-sm text-zinc-500 leading-relaxed">{description}</p>
+              <div>
+                <h3 className="font-bold text-base mb-1" style={{ color: '#172B4D' }}>
+                  {title}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: '#667085' }}>
+                  {description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

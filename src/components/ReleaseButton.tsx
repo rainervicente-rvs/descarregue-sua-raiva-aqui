@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Flame } from 'lucide-react';
 
 interface ReleaseButtonProps {
   onClick: () => void;
@@ -17,21 +16,30 @@ export function ReleaseButton({ onClick, disabled, isExploding }: ReleaseButtonP
         whileTap={disabled ? {} : { scale: 0.96 }}
         animate={
           isExploding
-            ? { scale: [1, 1.15, 0.92, 1.05, 1], rotate: [-2, 2, -1, 1, 0] }
+            ? { scale: [1, 1.12, 0.94, 1.05, 1], rotate: [-1, 1, -1, 1, 0] }
             : {}
         }
         transition={{ duration: 0.4 }}
         className={[
-          'w-full py-4 rounded-2xl font-black text-lg uppercase tracking-widest',
-          'flex items-center justify-center gap-3 transition-all duration-200',
+          'w-full py-4 rounded-2xl font-black text-lg',
+          'flex items-center justify-center gap-2 transition-all duration-200',
           disabled
-            ? 'bg-zinc-800 text-zinc-600 cursor-not-allowed border border-zinc-700'
-            : 'bg-gradient-to-r from-red-700 to-orange-600 text-white cursor-pointer shadow-lg shadow-red-900/40 hover:shadow-red-800/60 hover:from-red-600 hover:to-orange-500',
+            ? 'cursor-not-allowed'
+            : 'cursor-pointer pulse-cta',
         ].join(' ')}
+        style={
+          disabled
+            ? { background: '#F0EDE8', color: '#DDD0B8', border: '1.5px solid #EDE0CB' }
+            : {
+                background: '#F46F5E',
+                color: '#FFFFFF',
+                border: 'none',
+                boxShadow: '0 4px 20px rgba(244,111,94,0.35)',
+              }
+        }
+        aria-label={disabled ? 'Escreva algo para descarregar' : 'Descarregar agora'}
       >
-        <Flame size={22} className={disabled ? 'text-zinc-600' : 'text-orange-200'} />
-        DESCARREGUE!
-        <Flame size={22} className={disabled ? 'text-zinc-600' : 'text-orange-200'} />
+        {disabled ? 'Escreva para descarregar' : 'Descarregue agora'}
       </motion.button>
     </div>
   );

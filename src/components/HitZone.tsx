@@ -15,13 +15,13 @@ interface HitZoneProps {
   onHit: () => void;
 }
 
-const CLICK_EMOJIS = ['😤', '😠', '🤬', '💢', '🔥'] as const;
+const CLICK_EMOJIS = ['😤', '😩', '😫', '🤯', '💨'] as const;
 
 function clickEmoji(clicks: number): string {
-  if (clicks === 0)   return CLICK_EMOJIS[0];
-  if (clicks < 25)    return CLICK_EMOJIS[1];
-  if (clicks < 50)    return CLICK_EMOJIS[2];
-  if (clicks < 100)   return CLICK_EMOJIS[3];
+  if (clicks === 0)  return CLICK_EMOJIS[0];
+  if (clicks < 25)   return CLICK_EMOJIS[1];
+  if (clicks < 50)   return CLICK_EMOJIS[2];
+  if (clicks < 100)  return CLICK_EMOJIS[3];
   return CLICK_EMOJIS[4];
 }
 
@@ -92,8 +92,9 @@ export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
           <motion.p
             key={microcopy}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
-            className="text-xs text-zinc-500 mt-0.5"
+            animate={{ opacity: 0.65 }}
+            className="text-xs mt-0.5"
+            style={{ color: '#667085' }}
           >
             {microcopy}
           </motion.p>
@@ -109,14 +110,14 @@ export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
           <>
             <motion.div
               className="absolute rounded-full border-2"
-              style={{ borderColor: color, opacity: 0.2 }}
+              style={{ borderColor: color, opacity: 0.18 }}
               animate={{ width: size + 24, height: size + 24 }}
               transition={{ type: 'spring', stiffness: 80 }}
             />
             <motion.div
               className="absolute rounded-full border"
-              style={{ borderColor: color, opacity: 0.1 }}
-              animate={{ width: size + 48, height: size + 48 }}
+              style={{ borderColor: color, opacity: 0.09 }}
+              animate={{ width: size + 52, height: size + 52 }}
               transition={{ type: 'spring', stiffness: 55, delay: 0.05 }}
             />
           </>
@@ -130,11 +131,14 @@ export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
           style={{
             width: size,
             height: size,
-            background: `radial-gradient(circle at center, ${color}20 0%, ${color}06 65%, transparent 100%)`,
-            border: `3px solid ${color}`,
-            boxShadow: clickCount > 0 ? `0 0 ${18 + Math.min(clickCount / 4, 30)}px ${color}55` : 'none',
+            background: `radial-gradient(circle at center, ${color}18 0%, ${color}05 65%, transparent 100%)`,
+            border: `2.5px solid ${color}`,
+            boxShadow: clickCount > 0
+              ? `0 0 ${16 + Math.min(clickCount / 4, 28)}px ${color}44`
+              : `0 4px 20px ${color}22`,
             transition: 'border-color 0.4s, box-shadow 0.4s',
           }}
+          aria-label={`Botão de descarga emocional — ${skin.buttonLabel}`}
         >
           {/* Ripples */}
           <AnimatePresence>
@@ -143,7 +147,7 @@ export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
                 key={r.id}
                 className="absolute rounded-full pointer-events-none"
                 style={{ left: r.x, top: r.y, x: '-50%', y: '-50%', backgroundColor: color }}
-                initial={{ width: 0, height: 0, opacity: 0.5 }}
+                initial={{ width: 0, height: 0, opacity: 0.4 }}
                 animate={{ width: 200, height: 200, opacity: 0 }}
                 exit={{}}
                 transition={{ duration: 0.45, ease: 'easeOut' }}
@@ -173,8 +177,8 @@ export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
           <p className="text-4xl font-black" style={{ color }}>
             {clickCount}
           </p>
-          <p className="text-zinc-600 text-xs mt-0.5">
-            {clickCount === 1 ? 'aperto' : 'apertas'} · para 3s para liberar
+          <p className="text-xs mt-0.5" style={{ color: '#98A2B3' }}>
+            {clickCount === 1 ? 'aperto' : 'apertas'} · pare 3s para liberar
           </p>
         </motion.div>
       )}
