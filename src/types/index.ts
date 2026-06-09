@@ -1,5 +1,5 @@
 // ── Rage mode ───────────────────────────────────────────────────────────────
-export type RageMode = 'escrever' | 'botao';
+export type RageMode = 'escrever' | 'botao' | 'respirar';
 
 // ── Intensity levels ─────────────────────────────────────────────────────────
 export interface IntensityLevel {

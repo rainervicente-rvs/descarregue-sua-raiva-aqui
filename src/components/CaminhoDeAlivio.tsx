@@ -9,7 +9,7 @@ const PATHS = [
     bg: '#FFF3F2',
     border: '#F9C4BE',
     cta: 'Começar descarga',
-    mode: 'botao',
+    href: '#app',
   },
   {
     emoji: '✍️',
@@ -19,7 +19,7 @@ const PATHS = [
     bg: '#F5F2FD',
     border: '#D8CFF5',
     cta: 'Começar a escrever',
-    mode: 'escrever',
+    href: '#app',
   },
   {
     emoji: '🌊',
@@ -28,8 +28,8 @@ const PATHS = [
     color: '#9CCBEA',
     bg: '#F0F8FD',
     border: '#CBE7F5',
-    cta: 'Em breve',
-    mode: null,
+    cta: 'Iniciar respiração',
+    href: '#app',
   },
 ];
 
@@ -55,15 +55,16 @@ export function CaminhoDeAlivio() {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {PATHS.map(({ emoji, title, description, color, bg, border, cta, mode }, i) => (
-            <motion.div
+          {PATHS.map(({ emoji, title, description, color, bg, border, cta, href }, i) => (
+            <motion.a
               key={title}
+              href={href}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              whileHover={mode ? { y: -4, boxShadow: `0 12px 32px ${color}22` } : {}}
-              className="rounded-2xl p-6 flex flex-col gap-3 transition-all duration-300"
+              whileHover={{ y: -4, boxShadow: `0 12px 32px ${color}22` }}
+              className="rounded-2xl p-6 flex flex-col gap-3 transition-all duration-300 no-underline"
               style={{ background: bg, border: `1.5px solid ${border}` }}
             >
               <span className="text-3xl" role="img" aria-label={title}>{emoji}</span>
@@ -73,24 +74,13 @@ export function CaminhoDeAlivio() {
               <p className="text-sm leading-relaxed flex-1" style={{ color: '#667085' }}>
                 {description}
               </p>
-
-              {mode ? (
-                <a
-                  href="#app"
-                  className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold transition-opacity hover:opacity-75"
-                  style={{ color }}
-                >
-                  {cta} →
-                </a>
-              ) : (
-                <span
-                  className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium"
-                  style={{ color: '#98A2B3' }}
-                >
-                  {cta}
-                </span>
-              )}
-            </motion.div>
+              <span
+                className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold transition-opacity hover:opacity-75"
+                style={{ color }}
+              >
+                {cta} →
+              </span>
+            </motion.a>
           ))}
         </div>
       </div>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#FFF8EC"/>
+  <!-- Wave: nó ao fluxo -->
+  <path d="M8 38 Q16 28 24 38 Q32 48 40 38 Q48 28 56 38" stroke="#F46F5E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M8 26 Q16 16 24 26 Q32 36 40 26 Q48 16 56 26" stroke="#B9A7E8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6"/>
+</svg>

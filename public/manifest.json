@@ -1,0 +1,28 @@
+{
+  "name": "Descarregue Sua Raiva Aqui",
+  "short_name": "DSRAQ",
+  "description": "Um espaço seguro para aliviar, respirar e recuperar o controle. Privado por padrão.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8EC",
+  "theme_color": "#F46F5E",
+  "lang": "pt-BR",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Descarregar agora",
+      "short_name": "Descarregar",
+      "description": "Abrir o modo de descarga diretamente",
+      "url": "/#app"
+    }
+  ]
+}

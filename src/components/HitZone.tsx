@@ -48,6 +48,7 @@ export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
       const target = e.target as HTMLElement;
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
       e.preventDefault();
+      navigator.vibrate?.(20);
       onHit();
     }
     window.addEventListener('keydown', handler);
@@ -63,6 +64,8 @@ export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
         { id, x: e.clientX - rect.left, y: e.clientY - rect.top },
       ]);
       setTimeout(() => setRipples(prev => prev.filter(r => r.id !== id)), 500);
+      // Haptic feedback — short pulse, respects device support
+      navigator.vibrate?.(28);
       onHit();
     },
     [onHit],

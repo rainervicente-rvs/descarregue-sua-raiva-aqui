@@ -9,6 +9,7 @@ import { RageTextArea } from '../components/RageTextArea';
 import { HitZone } from '../components/HitZone';
 import { ReleaseButton } from '../components/ReleaseButton';
 import { ExplosionOverlay } from '../components/ExplosionOverlay';
+import { BreathingGuide } from '../components/BreathingGuide';
 import { PostReleaseActions } from '../components/PostReleaseActions';
 import { HeroSection } from '../components/HeroSection';
 import { CaminhoDeAlivio } from '../components/CaminhoDeAlivio';
@@ -79,7 +80,7 @@ export function HomePage() {
                   transition={{ duration: 0.15 }}
                   className="flex flex-col gap-5"
                 >
-                  <RageMeter intensity={intensity} />
+                  {mode !== 'respirar' && <RageMeter intensity={intensity} />}
 
                   {mode === 'escrever' ? (
                     <RageTextArea
@@ -87,12 +88,14 @@ export function HomePage() {
                       onChange={setText}
                       intensity={intensity}
                     />
-                  ) : (
+                  ) : mode === 'botao' ? (
                     <HitZone
                       clickCount={clickCount}
                       skin={currentSkin}
                       onHit={hit}
                     />
+                  ) : (
+                    <BreathingGuide onExit={() => setMode('escrever')} />
                   )}
 
                   {mode === 'escrever' && (
