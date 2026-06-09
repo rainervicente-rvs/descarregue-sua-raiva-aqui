@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import type { Preferences, Skin } from '../types';
-import { DEFAULT_PREFERENCES, PREFERENCES_KEY, getSkinById } from '../types';
+import { DEFAULT_PREFERENCES, PREFERENCES_KEY, ACHIEVEMENT_DEFS, getSkinById } from '../types';
 
 function loadPreferences(): Preferences {
   try {
@@ -23,7 +23,19 @@ export function usePreferences() {
     });
   }, []);
 
+  // One-time achievement unlock — idempotent
+  const unlockAchievement = useCallback((id: string) => {
+    setPreferences(prev => {
+      if (prev.unlockedAchievements.includes(id)) return prev;
+      const valid = ACHIEVEMENT_DEFS.some(a => a.id === id);
+      if (!valid) return prev;
+      const next = { ...prev, unlockedAchievements: [...prev.unlockedAchievements, id] };
+      localStorage.setItem(PREFERENCES_KEY, JSON.stringify(next));
+      return next;
+    });
+  }, []);
+
   const currentSkin: Skin = getSkinById(preferences.skinId);
 
-  return { preferences, currentSkin, updatePreferences };
+  return { preferences, currentSkin, updatePreferences, unlockAchievement };
 }

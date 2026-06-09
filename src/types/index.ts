@@ -1,5 +1,5 @@
 // ── Rage mode ───────────────────────────────────────────────────────────────
-export type RageMode = 'escrever' | 'botao' | 'respirar';
+export type RageMode = 'escrever' | 'botao' | 'respirar' | 'filtrar';
 
 // ── Intensity levels ─────────────────────────────────────────────────────────
 export interface IntensityLevel {
@@ -108,17 +108,35 @@ export function getSkinById(id: string): Skin {
   return SKINS.find(s => s.id === id) ?? SKINS[0];
 }
 
+// ── Achievements (ethical: one-time unlocks, no streaks, no pressure) ────────
+export interface AchievementDef {
+  id: string;
+  emoji: string;
+  label: string;
+}
+
+export const ACHIEVEMENT_DEFS: AchievementDef[] = [
+  { id: 'first_release', emoji: '🌊', label: 'Primeira descarga' },
+  { id: 'writer',        emoji: '✍️',  label: 'Colocou pra fora'  },
+  { id: 'presser',       emoji: '💪',  label: '50 apertas de uma vez' },
+  { id: 'breather',      emoji: '💨',  label: 'Respirou de verdade' },
+  { id: 'triple',        emoji: '⚡',  label: 'Três em uma sessão'  },
+  { id: 'filtered',      emoji: '🧩',  label: 'Não enviou, filtrou' },
+];
+
 // ── Preferences (only non-sensitive data) ────────────────────────────────────
 export interface Preferences {
   skinId: string;
   soundEnabled: boolean;
   reducedMotion: boolean;
+  unlockedAchievements: string[];
 }
 
 export const DEFAULT_PREFERENCES: Preferences = {
   skinId: 'basic',
   soundEnabled: false,
   reducedMotion: false,
+  unlockedAchievements: [],
 };
 
 export const PREFERENCES_KEY = 'dsraq.preferences';

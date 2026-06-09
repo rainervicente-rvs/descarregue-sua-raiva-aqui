@@ -6,9 +6,9 @@ import { clearSensitiveSessionState } from '../utils/privacy';
 clearSensitiveSessionState();
 
 function calcIntensity(text: string, clickCount: number, mode: RageMode): number {
-  if (mode === 'botao') {
-    return Math.min(Math.round((clickCount / 50) * 100), 100);
-  }
+  if (mode === 'botao')    return Math.min(Math.round((clickCount / 50) * 100), 100);
+  if (mode === 'respirar') return 0;
+  if (mode === 'filtrar')  return 0;
 
   if (!text.trim()) return 0;
 
@@ -69,6 +69,18 @@ export function useRage() {
     };
   }, [clickCount, mode, doRelease]);
 
+  // Listen for landing CTA mode requests
+  useEffect(() => {
+    function onModeRequest(e: Event) {
+      const requestedMode = (e as CustomEvent<RageMode>).detail;
+      setMode(requestedMode);
+    }
+    window.addEventListener('dsraq:mode', onModeRequest);
+    return () => window.removeEventListener('dsraq:mode', onModeRequest);
+  // setMode is stable (useCallback), but we define it below — safe to omit
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const hit = useCallback(() => {
     setClickCount(c => c + 1);
   }, []);
@@ -93,7 +105,10 @@ export function useRage() {
   }, []);
 
   const intensity = calcIntensity(text, clickCount, mode);
-  const canRelease = mode === 'escrever' ? text.trim().length > 0 : clickCount > 0;
+  const canRelease =
+    mode === 'escrever' ? text.trim().length > 0 :
+    mode === 'botao'    ? clickCount > 0 :
+    false;
 
   return {
     mode,

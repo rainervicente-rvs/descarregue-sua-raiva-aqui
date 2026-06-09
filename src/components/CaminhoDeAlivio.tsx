@@ -1,6 +1,17 @@
 import { motion } from 'framer-motion';
+import { dispatchModeRequest } from '../utils/modeRequest';
+import type { RageMode } from '../types';
 
-const PATHS = [
+const PATHS: {
+  emoji: string;
+  title: string;
+  description: string;
+  color: string;
+  bg: string;
+  border: string;
+  cta: string;
+  mode: RageMode;
+}[] = [
   {
     emoji: '👊',
     title: 'Toque e solte',
@@ -9,7 +20,7 @@ const PATHS = [
     bg: '#FFF3F2',
     border: '#F9C4BE',
     cta: 'Começar descarga',
-    href: '#app',
+    mode: 'botao',
   },
   {
     emoji: '✍️',
@@ -19,21 +30,25 @@ const PATHS = [
     bg: '#F5F2FD',
     border: '#D8CFF5',
     cta: 'Começar a escrever',
-    href: '#app',
+    mode: 'escrever',
   },
   {
     emoji: '🌊',
     title: 'Respirar e acalmar',
-    description: 'Guia de respiração para regular o corpo e a mente depois da descarga.',
+    description: 'Guia de respiração para regular o corpo e a mente quando a tensão pesa.',
     color: '#9CCBEA',
     bg: '#F0F8FD',
     border: '#CBE7F5',
     cta: 'Iniciar respiração',
-    href: '#app',
+    mode: 'respirar',
   },
 ];
 
 export function CaminhoDeAlivio() {
+  function handleClick(mode: RageMode) {
+    dispatchModeRequest(mode);
+  }
+
   return (
     <section className="py-16 px-4" style={{ background: '#FFFFFF' }}>
       <div className="max-w-2xl mx-auto">
@@ -55,29 +70,23 @@ export function CaminhoDeAlivio() {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {PATHS.map(({ emoji, title, description, color, bg, border, cta, href }, i) => (
+          {PATHS.map(({ emoji, title, description, color, bg, border, cta, mode }, i) => (
             <motion.a
               key={title}
-              href={href}
+              href="#app"
+              onClick={() => handleClick(mode)}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               whileHover={{ y: -4, boxShadow: `0 12px 32px ${color}22` }}
-              className="rounded-2xl p-6 flex flex-col gap-3 transition-all duration-300 no-underline"
+              className="rounded-2xl p-6 flex flex-col gap-3 transition-all duration-300 no-underline cursor-pointer"
               style={{ background: bg, border: `1.5px solid ${border}` }}
             >
               <span className="text-3xl" role="img" aria-label={title}>{emoji}</span>
-              <h3 className="font-bold text-lg leading-tight" style={{ color: '#172B4D' }}>
-                {title}
-              </h3>
-              <p className="text-sm leading-relaxed flex-1" style={{ color: '#667085' }}>
-                {description}
-              </p>
-              <span
-                className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold transition-opacity hover:opacity-75"
-                style={{ color }}
-              >
+              <h3 className="font-bold text-lg leading-tight" style={{ color: '#172B4D' }}>{title}</h3>
+              <p className="text-sm leading-relaxed flex-1" style={{ color: '#667085' }}>{description}</p>
+              <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold" style={{ color }}>
                 {cta} →
               </span>
             </motion.a>
