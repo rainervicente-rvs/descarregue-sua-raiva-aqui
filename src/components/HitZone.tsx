@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import { getCurrentPhase, MICROCOPIES } from '../types';
 import type { Skin } from '../types';
+import { playHitSound } from '../utils/sound';
 
 interface Ripple {
   id: number;
@@ -13,6 +14,7 @@ interface HitZoneProps {
   clickCount: number;
   skin: Skin;
   onHit: () => void;
+  soundEnabled: boolean;
 }
 
 const CLICK_EMOJIS = ['😤', '😩', '😫', '🤯', '💨'] as const;
@@ -25,7 +27,7 @@ function clickEmoji(clicks: number): string {
   return CLICK_EMOJIS[4];
 }
 
-export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
+export function HitZone({ clickCount, skin, onHit, soundEnabled }: HitZoneProps) {
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const phase = getCurrentPhase(clickCount);
 
@@ -49,6 +51,7 @@ export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
       e.preventDefault();
       navigator.vibrate?.(20);
+      if (soundEnabled) playHitSound();
       onHit();
     }
     window.addEventListener('keydown', handler);
@@ -64,8 +67,8 @@ export function HitZone({ clickCount, skin, onHit }: HitZoneProps) {
         { id, x: e.clientX - rect.left, y: e.clientY - rect.top },
       ]);
       setTimeout(() => setRipples(prev => prev.filter(r => r.id !== id)), 500);
-      // Haptic feedback — short pulse, respects device support
       navigator.vibrate?.(28);
+      if (soundEnabled) playHitSound();
       onHit();
     },
     [onHit],

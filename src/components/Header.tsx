@@ -1,18 +1,36 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { Volume2, VolumeX } from 'lucide-react';
 import { ACHIEVEMENT_DEFS } from '../types';
 
 interface HeaderProps {
   sessionCount: number;
   unlockedAchievements: string[];
   newAchievementId: string | null;
+  soundEnabled: boolean;
+  onToggleSound: () => void;
 }
 
-export function Header({ sessionCount, unlockedAchievements, newAchievementId }: HeaderProps) {
+export function Header({ sessionCount, unlockedAchievements, newAchievementId, soundEnabled, onToggleSound }: HeaderProps) {
   const unlockedDefs = ACHIEVEMENT_DEFS.filter(a => unlockedAchievements.includes(a.id));
   const newAchievement = newAchievementId ? ACHIEVEMENT_DEFS.find(a => a.id === newAchievementId) : null;
 
   return (
     <header className="text-center py-8 px-4 relative">
+      {/* Sound toggle — top right corner */}
+      <motion.button
+        onClick={onToggleSound}
+        whileTap={{ scale: 0.9 }}
+        title={soundEnabled ? 'Desligar som' : 'Ligar som'}
+        className="absolute top-6 right-4 flex items-center justify-center w-8 h-8 rounded-full cursor-pointer transition-colors"
+        style={{
+          background: soundEnabled ? '#F5F2FD' : '#F5F5F5',
+          border: `1.5px solid ${soundEnabled ? '#D8CFF5' : '#EDE0CB'}`,
+          color: soundEnabled ? '#9A87D4' : '#C0B8AA',
+        }}
+      >
+        {soundEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
+      </motion.button>
+
       <motion.div
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}

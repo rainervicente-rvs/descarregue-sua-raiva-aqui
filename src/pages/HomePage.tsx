@@ -3,6 +3,7 @@ import { ShieldCheck } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useRage } from '../hooks/useRage';
 import { usePreferences } from '../hooks/usePreferences';
+import { playReleaseSound } from '../utils/sound';
 import { Header } from '../components/Header';
 import { ModeSelector } from '../components/ModeSelector';
 import { RageMeter } from '../components/RageMeter';
@@ -21,6 +22,7 @@ import { PrivacidadeSection } from '../components/PrivacidadeSection';
 import { PorQueFunciona } from '../components/PorQueFunciona';
 import { SkinSelector } from '../components/SkinSelector';
 import { PremiumPlans } from '../components/PremiumPlans';
+import { FAQ } from '../components/FAQ';
 import { CtaFinal } from '../components/CtaFinal';
 import { Footer } from '../components/Footer';
 
@@ -72,6 +74,14 @@ export function HomePage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickCount]);
 
+  // Play release sound when explosion fires
+  useEffect(() => {
+    if (isExploding && preferences.soundEnabled) {
+      playReleaseSound(lastReleasedIntensity ?? intensity);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isExploding]);
+
   // Cleanup
   useEffect(() => () => { if (toastTimerRef.current) clearTimeout(toastTimerRef.current); }, []);
 
@@ -96,6 +106,8 @@ export function HomePage() {
             sessionCount={sessionReleaseCount}
             unlockedAchievements={preferences.unlockedAchievements}
             newAchievementId={newAchievementId}
+            soundEnabled={preferences.soundEnabled}
+            onToggleSound={() => updatePreferences({ soundEnabled: !preferences.soundEnabled })}
           />
 
           <div className="flex flex-col gap-5 pb-8">
@@ -119,7 +131,12 @@ export function HomePage() {
                     <RageTextArea value={text} onChange={setText} intensity={intensity} />
                   )}
                   {mode === 'botao' && (
-                    <HitZone clickCount={clickCount} skin={currentSkin} onHit={hit} />
+                    <HitZone
+                      clickCount={clickCount}
+                      skin={currentSkin}
+                      onHit={hit}
+                      soundEnabled={preferences.soundEnabled}
+                    />
                   )}
                   {mode === 'respirar' && (
                     <BreathingGuide
@@ -180,6 +197,7 @@ export function HomePage() {
         onSelectSkin={id => updatePreferences({ skinId: id })}
       />
       <PremiumPlans />
+      <FAQ />
       <CtaFinal />
       <Footer />
     </div>
